@@ -48,6 +48,8 @@ Meteor.methods({
 
 		message.u = originalMessage.u;
 
+		RocketChat.URLBlocker.blockURL(Meteor.user(), message)
+
 		return RocketChat.updateMessage(message, Meteor.user());
 	}
 });
