@@ -5,13 +5,27 @@ ENV RC_VERSION 0.59.0-develop
 MAINTAINER buildmaster@rocket.chat
 
 RUN set -x \
- && curl -SLf "https://rocket.chat/releases/${RC_VERSION}/download" -o rocket.chat.tgz \
- && curl -SLf "https://rocket.chat/releases/${RC_VERSION}/asc" -o rocket.chat.tgz.asc \
+ && apt-get -y update \
+ && apt-get -y install git \
+ && apt-get -y install bzip2 \
+ && npm install -g n \
+ && n 6.10.0 \
+ && npm install postcss-smart-import \
+ && npm install postcss-cssnext \
+ && curl https://install.meteor.com | /bin/sh \
+ && mkdir ~/.ssh \
+ && ssh-keyscan github.com >> ~/.ssh/known_hosts \
+ && git clone -b streamr https://github.com/streamr-dev/Rocket.Chat.git /Rocket.Chat \
  && mkdir /app \
- && gpg --verify rocket.chat.tgz.asc \
- && mkdir -p /app \
- && tar -zxf rocket.chat.tgz -C /app \
- && rm rocket.chat.tgz rocket.chat.tgz.asc \
+ && chown rocketchat:rocketchat /app \
+ && chown -R rocketchat:rocketchat /Rocket.Chat \
+ && mkdir /home/rocketchat # deeded for meteor temp build dir \
+ && chown -R rocketchat:rocketchat /home/rocketchat \
+ && cd /Rocket.Chat \
+ && su rocketchat -c "meteor npm i" \
+ && su rocketchat -c "meteor build --server-only /app" \
+ && tar -zxf /app/Rocket.Chat.tar.gz -C /app \
+ && rm /app/Rocket.Chat.tar.gz \
  && cd /app/bundle/programs/server \
  && npm install \
  && npm cache clear \
