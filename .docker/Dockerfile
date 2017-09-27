@@ -18,7 +18,7 @@ RUN set -x \
  && cd /Rocket.Chat \
  && npm install postcss-smart-import \
  && npm install postcss-cssnext \
- && meteor npm i \
+ && meteor --allow-superuser npm i \
  && meteor build --server-only --allow-superuser /app \
  && tar -zxf /app/Rocket.Chat.tar.gz -C /app \
  && rm /app/Rocket.Chat.tar.gz \
