@@ -19,7 +19,7 @@ RUN set -x \
  && mkdir /app \
  && chown rocketchat:rocketchat /app \
  && chown -R rocketchat:rocketchat /Rocket.Chat \
- && mkdir /home/rocketchat # deeded for meteor temp build dir \
+ && mkdir /home/rocketchat \
  && chown -R rocketchat:rocketchat /home/rocketchat \
  && cd /Rocket.Chat \
  && su rocketchat -c "meteor npm i" \
