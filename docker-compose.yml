@@ -4,7 +4,7 @@ services:
     image: streamr/rocket.chat:latest
     restart: unless-stopped
     volumes:
-      - ./uploads:/app/uploads
+      - /var/lib/rocketchat/uploads:/app/uploads
     environment:
       - PORT=6666
       - ROOT_URL=http://localhost:6666
