@@ -23,8 +23,7 @@ services:
     image: mongo:3.2
     restart: unless-stopped
     volumes:
-     - ./data/db:/data/db
-     #- ./data/dump:/dump
+     - /var/lib/mongodb/data/db:/data/db
     command: mongod --smallfiles --oplogSize 128 --replSet rs0
     labels:
       - "traefik.enable=false"
