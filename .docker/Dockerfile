@@ -10,20 +10,16 @@ RUN set -x \
  && apt-get -y install bzip2 \
  && npm install -g n \
  && n 6.10.0 \
- && npm install postcss-smart-import \
- && npm install postcss-cssnext \
  && curl https://install.meteor.com | /bin/sh \
  && mkdir ~/.ssh \
  && ssh-keyscan github.com >> ~/.ssh/known_hosts \
  && git clone -b streamr https://github.com/streamr-dev/Rocket.Chat.git /Rocket.Chat \
  && mkdir /app \
- && chown rocketchat:rocketchat /app \
- && chown -R rocketchat:rocketchat /Rocket.Chat \
- && mkdir /home/rocketchat \
- && chown -R rocketchat:rocketchat /home/rocketchat \
  && cd /Rocket.Chat \
- && su rocketchat -c "meteor npm i" \
- && su rocketchat -c "meteor build --server-only /app" \
+ && npm install postcss-smart-import \
+ && npm install postcss-cssnext \
+ && meteor npm i \
+ && meteor build --server-only --allow-superuser /app \
  && tar -zxf /app/Rocket.Chat.tar.gz -C /app \
  && rm /app/Rocket.Chat.tar.gz \
  && cd /app/bundle/programs/server \
