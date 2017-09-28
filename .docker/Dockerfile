@@ -8,6 +8,8 @@ RUN set -x \
  && apt-get -y update \
  && apt-get -y install git \
  && apt-get -y install bzip2 \
+ && npm install -g n \
+ && n 6.10.0 \
  && curl https://install.meteor.com | /bin/sh \
  && mkdir ~/.ssh \
  && ssh-keyscan github.com >> ~/.ssh/known_hosts \
@@ -17,13 +19,12 @@ RUN set -x \
  && npm install postcss-smart-import \
  && npm install postcss-cssnext \
  && meteor --allow-superuser npm i \
- && meteor build --server-only --allow-superuser /app \
- && tar -zxf /app/Rocket.Chat.tar.gz -C /app \
- && rm /app/Rocket.Chat.tar.gz \
+ && meteor build --server-only --allow-superuser --directory /app \
  && cd /app/bundle/programs/server \
  && npm install \
  && npm cache clear \
  && chown -R rocketchat:rocketchat /app
+ && n 4.8.4
 
 USER rocketchat
 
