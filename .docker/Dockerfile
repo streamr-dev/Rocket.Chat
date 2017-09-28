@@ -8,8 +8,6 @@ RUN set -x \
  && apt-get -y update \
  && apt-get -y install git \
  && apt-get -y install bzip2 \
- && npm install -g n \
- && n 6.10.0 \
  && curl https://install.meteor.com | /bin/sh \
  && mkdir ~/.ssh \
  && ssh-keyscan github.com >> ~/.ssh/known_hosts \
