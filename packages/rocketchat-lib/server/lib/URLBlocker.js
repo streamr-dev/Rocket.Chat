@@ -34,6 +34,7 @@ RocketChat.URLBlocker = new class {
 					+ "|w[fs]"
 					+ "|y[etu]"
 					+ "|z[amw]))"
+					+ "|(0x)?[0-9a-fA-F]{40}" // or ethereum address
 					+ "|(?:(?:25[0-5]|2[0-4]" // or ip address
 					+ "[0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(?:25[0-5]|2[0-4][0-9]"
 					+ "|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(?:25[0-5]|2[0-4][0-9]|[0-1]"
@@ -45,7 +46,7 @@ RocketChat.URLBlocker = new class {
 					+ "(?:\\b|$)", "g"))
 					if(result && result.length)
 						result.forEach(url => {
-							_content.msg = _content.msg.replace(new RegExp(url, 'gi'), "<This account is *NOT!* authorized to share URL, IP Address.>");
+							_content.msg = _content.msg.replace(new RegExp(url, 'gi'), "<This account is *NOT!* authorized to share URLs, IP Addresses or Ethereum addresses.>");
 						})
 			}
 		}
