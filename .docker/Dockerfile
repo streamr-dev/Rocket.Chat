@@ -23,7 +23,7 @@ RUN set -x \
  && cd /app/bundle/programs/server \
  && npm install \
  && npm cache clear \
- && chown -R rocketchat:rocketchat /app
+ && chown -R rocketchat:rocketchat /app \
  && n 4.8.4
 
 USER rocketchat
